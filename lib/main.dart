@@ -3,14 +3,37 @@ import 'package:flutter/material.dart';
 import 'package:food/firebase_options.dart';
 import 'package:food/services/auth/auth_gate.dart';
 import 'package:provider/provider.dart';
+import 'models/restaurant.dart';
 import 'theme/theme_provider.dart';
+
+
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+
+
+//   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+//   runApp(ChangeNotifierProvider(
+//     create: (context) => ThemeProvider(),
+//     child: const MyApp(),
+//   ));
+// }
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(ChangeNotifierProvider(
-    create: (context) => ThemeProvider(),
-    child: const MyApp(),
-  ));
+
+  runApp(
+    MultiProvider(
+      providers: [
+        // theme provider
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+
+        // restaurant provider
+        ChangeNotifierProvider(create: (context) => Restaurant()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
