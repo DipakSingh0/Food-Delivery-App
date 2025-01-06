@@ -1,12 +1,14 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:food/models/cart_items.dart';
 
 import 'food.dart';
 
-class Restaurant extends ChangeNotifier{
+class Restaurant extends ChangeNotifier {
   // list of food menu
   final List<Food> menu = [
     // burgers
-  
+
     Food(
       name: "Bacon Cheeseburger",
       description:
@@ -59,7 +61,7 @@ class Restaurant extends ChangeNotifier{
         Addon(name: "Avocado", price: 2.99),
       ],
     ),
-  Food(
+    Food(
       name: "Classic Cheeseburger",
       description:
           "A juicy with melted cheddar, lettuce, tomato, and a hint of onion and pickle.",
@@ -299,36 +301,101 @@ class Restaurant extends ChangeNotifier{
         ]),
   ];
 
- // -----------GETTERS------------//
+  // -----------GETTERS------------//
 
+  // List<Food> get menu => _menu;
+  List<CartItem> get cart => _cart;
 
- // -----------OPERATIONS------------//
+  // -----------OPERATIONS------------//
+  // user cart
+  final List<CartItem> _cart = [];
+
 //  add to cart
+  void addToCart(Food food, List<Addon> selectedAddons) {
+    //see if there is alredy present same food on cart item and selected addon
 
+    // ignore: unused_local_variable
+    CartItem? cartItem = _cart.firstWhereOrNull((item) {
+      // check if the food items are same
+      bool isSameFood = item.food == food;
+
+      //check if list of selected addons are same
+      bool isSameAddons =
+          ListEquality().equals(item.selectedAddons, selectedAddons);
+
+      return isSameFood && isSameAddons;
+    });
+
+    //if item already exists, increase its quantity
+    if (cartItem != null) {
+      cartItem.quantity++;
+    }
+
+    // otherwise, add a new cart item to the cart
+    else {
+      _cart.add(CartItem(
+        food: food,
+        selectedAddons: selectedAddons,
+      ));
+    }
+    notifyListeners();
+  }
 
 // remove from cart
+  void removeFromCart(CartItem cartItem) {
+    int cartIndex = _cart.indexOf(cartItem);
 
+    if (cartIndex != -1) {
+      if (_cart[cartIndex].quantity > 1) {
+        _cart[cartIndex].quantity--;
+      } else {
+        _cart.removeAt(cartIndex);
+      }
+    }
+    notifyListeners();
+  }
 
 // get total price of cart
+  double getTotalPrice() {
+    double total = 0.0;
 
+    for (CartItem cartItem in _cart) {
+      double itemTotal = cartItem.food.price;
 
+      for (Addon addon in cartItem.selectedAddons) {
+        itemTotal += addon.price;
+      }
 
-// get total items in cart
+      total += itemTotal * cartItem.quantity;
+    }
 
+    return total;
+  }
+
+// get total number of items in cart
+  int getTotalItemCount() {
+    int totalItemCount = 0;
+
+    for (CartItem cartItem in _cart) {
+      totalItemCount += cartItem.quantity;
+    }
+
+    return totalItemCount;
+  }
+
+// clear cart
+  void clearCart() {
+    _cart.clear();
+    notifyListeners();
+  }
 
 //clear cart
 
-
-
- // -----------HELPERS------------//
+  // -----------HELPERS------------//
 
   // generate receipt
 
-
   //  format double value into money
 
-
   // format list of addoons into a string sumary
-
-
 }
