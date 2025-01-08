@@ -37,7 +37,7 @@ class MyCartTile extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 35,
                   ),
                   Column(
                     children: [
@@ -47,12 +47,11 @@ class MyCartTile extends StatelessWidget {
                       Text('\$${cartItem.food.price}', style: TextStyle(
                         color: theme.primary,
                       )),
-                    ],
-                  ),
 
-                  const Spacer(),
-                  // increment or decrement quantity
-                  MyQuantitySelector(
+
+                      const SizedBox(height: 12,),
+
+                       MyQuantitySelector(
                       quantity: cartItem.quantity,
                       food: cartItem.food,
                       onIncrement: () {
@@ -62,6 +61,21 @@ class MyCartTile extends StatelessWidget {
                         restaurant.addToCart(
                             cartItem.food, cartItem.selectedAddons);
                       }),
+                    ],
+                  ),
+
+                  const Spacer(),
+                  // increment or decrement quantity
+                  // MyQuantitySelector(
+                  //     quantity: cartItem.quantity,
+                  //     food: cartItem.food,
+                  //     onIncrement: () {
+                  //       restaurant.removeFromCart(cartItem);
+                  //     },
+                  //     onDecrement: () {
+                  //       restaurant.addToCart(
+                  //           cartItem.food, cartItem.selectedAddons);
+                  //     }),
                 ],
               ),
             ),

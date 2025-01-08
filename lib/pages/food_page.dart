@@ -23,25 +23,22 @@ class FoodPage extends StatefulWidget {
 }
 
 class _FoodPageState extends State<FoodPage> {
-
 // method to add to cart
-void addToCart(Food food, Map<Addon, bool> selectedAddons) {
+  void addToCart(Food food, Map<Addon, bool> selectedAddons) {
+    //close the currenet foodpage to go back to menu
+    Navigator.of(context).pop();
 
-  //close the currenet foodpage to go back to menu
-  Navigator.of(context).pop();
-
-  // format the selected addons 
-  List<Addon> currentlySelectedAddons  = [];
-  for (Addon addon in widget.food.availableAddons){
-    if (widget.selectedAddons[addon] == true){
-      currentlySelectedAddons.add(addon);
+    // format the selected addons
+    List<Addon> currentlySelectedAddons = [];
+    for (Addon addon in widget.food.availableAddons) {
+      if (widget.selectedAddons[addon] == true) {
+        currentlySelectedAddons.add(addon);
+      }
     }
+
+    //add to cart
+    context.read<Restaurant>().addToCart(food, currentlySelectedAddons);
   }
-
-  //add to cart
-context.read<Restaurant>().addToCart(food, currentlySelectedAddons);
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +52,7 @@ context.read<Restaurant>().addToCart(food, currentlySelectedAddons);
             children: [
               // food image on top
               Image.asset(widget.food.imagePath),
-      
+
               Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: Column(
@@ -70,7 +67,7 @@ context.read<Restaurant>().addToCart(food, currentlySelectedAddons);
                         color: theme.inversePrimary,
                       ),
                     ),
-      
+
                     // food price
                     Text(
                       '\$${widget.food.price}',
@@ -80,17 +77,17 @@ context.read<Restaurant>().addToCart(food, currentlySelectedAddons);
                         color: theme.primary,
                       ),
                     ),
-      
+
                     const SizedBox(
                       height: 10,
                     ),
-      
+
                     Divider(color: theme.secondary),
-      
+
                     const SizedBox(
                       height: 10,
                     ),
-      
+
                     Text(
                       "Addons",
                       style: TextStyle(
@@ -108,7 +105,7 @@ context.read<Restaurant>().addToCart(food, currentlySelectedAddons);
                         color: theme.primary,
                       ),
                     ),
-      
+
                     // button -> add on  to cart
                     Container(
                       decoration: BoxDecoration(
@@ -123,7 +120,7 @@ context.read<Restaurant>().addToCart(food, currentlySelectedAddons);
                         itemBuilder: (context, index) {
                           // get individual addons
                           Addon addon = widget.food.availableAddons[index];
-      
+
                           //return chekc box UI
                           return CheckboxListTile(
                               title: Text(addon.name),
@@ -147,25 +144,27 @@ context.read<Restaurant>().addToCart(food, currentlySelectedAddons);
                   ],
                 ),
               ),
-      
+
               //buttton  -- add to cart
-              MyButton(text: "Add to Cart", onTap: () => addToCart(widget.food, widget.selectedAddons)),
-      
+              MyButton(
+                  text: "Add to Cart",
+                  onTap: () => addToCart(widget.food, widget.selectedAddons)),
+
               const SizedBox(
                 height: 25,
               ),
             ],
           ),
         )),
-      
+
         // back button using stack
         SafeArea(
           child: Opacity(
             opacity: 0.5,
             child: Container(
-              margin: const EdgeInsets.only(left:25),
+              margin: const EdgeInsets.only(left: 25),
               decoration: BoxDecoration(
-                color:theme.secondary,
+                color: theme.secondary,
                 shape: BoxShape.circle,
               ),
               child: IconButton(

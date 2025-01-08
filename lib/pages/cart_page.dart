@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food/components/my_button.dart';
 import 'package:food/components/my_cart_tile.dart';
 import 'package:food/models/restaurant.dart';
+import 'package:food/pages/payment_page.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
@@ -47,26 +49,45 @@ class CartPage extends StatelessWidget {
                     ],
                   ),
                 );
-              }, icon: Icon(Icons.delete),
+              },
+              icon: Icon(Icons.delete),
             )
           ],
         ),
         body: Column(
           children: [
-            userCart.isEmpty? const Expanded(child: Center(child: const Text('Your Cart is empty...'))) :
             Expanded(
-                child: ListView.builder(
-                    itemCount: userCart.length,
-                    itemBuilder: (context, index) {
-                      // get indivuidual cart item
-                      final cartItem = userCart[index];
+              child: Column(
+                children: [
+                  userCart.isEmpty
+                      ? const Expanded(
+                          child: Center(child: Text('Your Cart is empty...')))
+                      : Expanded(
+                          child: ListView.builder(
+                              itemCount: userCart.length,
+                              itemBuilder: (context, index) {
+                                // get indivuidual cart item
+                                final cartItem = userCart[index];
 
-                      // return cart tile ui
-                      return MyCartTile(cartItem: cartItem);
-                      // return ListTile(
-                      //   title: Text(cartItem.food.name),
-                      // );
-                    })),
+                                // return cart tile ui
+                                return MyCartTile(cartItem: cartItem);
+                                // return ListTile(
+                                //   title: Text(cartItem.food.name),
+                                // );
+                              })),
+                ],
+              ),
+            ),
+
+            //payment button
+            MyButton(
+                text: "Go To Checkout",
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PaymentPage()))),
+
+            const SizedBox(height: 25),
           ],
         ),
       );

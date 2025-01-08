@@ -42,33 +42,30 @@ class _HomePageState extends State<HomePage>
   }
 
 // return list of foods in given category
-List<Widget> getFoodInThisCategory(List<Food> fullMenu) {
-  return FoodCategory.values.map((category) {
-    // get category menu
-    List<Food> categoryMenu = _filterMenuByCategory(category, fullMenu);
+  List<Widget> getFoodInThisCategory(List<Food> fullMenu) {
+    return FoodCategory.values.map((category) {
+      // get category menu
+      List<Food> categoryMenu = _filterMenuByCategory(category, fullMenu);
 
-    return ListView.builder(
-      itemCount: categoryMenu.length,
-      physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.zero,
-      itemBuilder: (context, index) {
-        // get individual food
-        final food = categoryMenu[index];
+      return ListView.builder(
+        itemCount: categoryMenu.length,
+        physics: const NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.zero,
+        itemBuilder: (context, index) {
+          // get individual food
+          final food = categoryMenu[index];
 
-        // return food tile UI
-        return FoodTile(
-          food: food,
-          // onTap: (){},
-          onTap: () => Navigator.push(
-            context, MaterialPageRoute(
-              builder: (context) =>
-               FoodPage(food:food)
-               )),
-        );
-      },
-    );
-  }).toList();
-}
+          // return food tile UI
+          return FoodTile(
+            food: food,
+            // onTap: (){},
+            onTap: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => FoodPage(food: food))),
+          );
+        },
+      );
+    }).toList();
+  }
 
   //cahat and auth service
   // ignore: unused_field
