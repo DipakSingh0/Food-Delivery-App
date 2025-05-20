@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 // Light Theme Color
-const lightAppBarColor = Colors.white;
-var lightBgColor = Colors.grey[200];
+const lightAppBarColor = Colors.blue;
+var lightBgColor = Colors.white;
 var lightFontColor = Colors.grey[850];
 const lightDivColor = Color(0xffF5F6fA);
 const lightPrimaryColor = Colors.white;
 const lightLabelColor = Color(0xff8E8E8E);
 const lightHeadingColor = Colors.black;
-var lightCardColor = Colors.grey[200];
+// var lightCardColor = Colors.grey[200];
+var lightCardColor = Colors.green;
 
 var primaryColor = Color(0xFFFFE400);
 var secondaryColor = Color(0xFF272727); 

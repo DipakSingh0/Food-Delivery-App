@@ -25,15 +25,17 @@ class FoodTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(food.name),
+                  Text(food.name , style: TextStyle(fontSize: 22),),
                   Text('\$${food.price}', 
                   style: TextStyle(
-                    color: theme.primary,
+                    // color: theme.primary,
+                    fontSize: 15
                   )),
                   Text(food.description , 
                      style: TextStyle(
                     color: theme.inversePrimary,
                   )),
+                  const Divider(),
                 ],
               ),
             ),
@@ -52,6 +54,7 @@ class FoodTile extends StatelessWidget {
           ),
           ],
         ),
+
       ),
     );
   }

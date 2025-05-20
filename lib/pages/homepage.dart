@@ -106,7 +106,8 @@ class _HomePageState extends State<HomePage>
                           MyCurrentLocation(),
 
                           //description box
-                          const MyDescriptionBox()
+                          const MyDescriptionBox(),
+                           const SizedBox(height: 35,)
                         ],
                       )),
                 ],

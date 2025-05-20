@@ -90,7 +90,7 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
                 Text("Driver",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                      fontSize: 15,
                       color: theme.inversePrimary,
                     )),
               ],

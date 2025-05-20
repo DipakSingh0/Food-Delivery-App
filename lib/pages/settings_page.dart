@@ -13,13 +13,14 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Settings'),
       ),
-      backgroundColor: theme.primary,
+      // backgroundColor: theme.primary,
 
       body: Column(
         children: [
           Container(
             decoration: BoxDecoration(
               color: theme.secondary,
+              // color: Colors.white,
               borderRadius: BorderRadius.circular(12),
             ),
             margin: const EdgeInsets.only(left:25,top:10,right:25),
